@@ -6,9 +6,9 @@ export interface Question {
   description: string;
   positive: string;
   negative: string;
-  createdAt: string;
-  updatedAt: string;
-  archivedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
+  archivedAt: Date | 0;
 }
 
 
