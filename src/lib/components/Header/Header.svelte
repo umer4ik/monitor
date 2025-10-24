@@ -9,6 +9,7 @@
   <div class="mx-auto flex max-w-[65ch] items-center justify-between gap-4">
     <a href={resolve('/')} class="text-sm font-semibold  {activeUrl === '/' ? 'text-primary-600' : 'dark:text-gray-400 text-gray-700'}">Home</a>
     <a href={resolve('/questions')} class="text-sm font-semibold  {activeUrl === '/questions' ? 'text-primary-600' : 'dark:text-gray-400 text-gray-700'}">Questions</a>
+    <a href={resolve('/polls')} class="text-sm font-semibold  {activeUrl === '/polls' ? 'text-primary-600' : 'dark:text-gray-400 text-gray-700'}">Polls</a>
     <DarkMode class="ml-auto" />
   </div>
 </header>

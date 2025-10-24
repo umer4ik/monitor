@@ -1,11 +1,12 @@
-import { db, type Question } from "$lib/db";
+import { db } from "$lib/db";
+import type { Question } from "$lib/types/db-entities";
 
 export const addQuestion = async (question: Omit<Question, 'id' | 'createdAt' | 'updatedAt' | 'archivedAt'>) => {
   try {
     const id = await db.questions.add({
       ...question,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: 0,
       archivedAt: 0,
     });
     return { id, ...question };
@@ -60,3 +61,6 @@ export const getQuestionById = async (id: number): Promise<Question | undefined>
     throw error;
   }
 }
+
+export const getUnArchivedQuestions = () => db.questions.where('archivedAt').equals(0).toArray();
+export const getArchivedQuestions = () => db.questions.where('archivedAt').notEqual(0).toArray();

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import type { Question } from '$lib/db';
+  import type { Question } from '$lib/types/db-entities';
   import { Button } from 'flowbite-svelte';
   import { ArchiveSolid, PenSolid } from 'flowbite-svelte-icons';
 

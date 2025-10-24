@@ -1,5 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
+    import Container from '$lib/components/Container/Container.svelte';
   import QuestionsList from '$lib/components/QuestionsList/QuestionsList.svelte';
     import QuestionsListSkeleton from '$lib/components/QuestionsListSkeleton/QuestionsListSkeleton.svelte';
   import { db } from '$lib/db';
@@ -8,7 +9,7 @@
   let questions = liveQuery(() => db.questions.where('archivedAt').notEqual(0).toArray());
 </script>
 
-<div class="mx-auto max-w-[65ch]">
+<Container>
   <div class="-mx-4 -mt-4 pb-[72px]">
     {#if $questions}
       {#if $questions.length}
@@ -22,4 +23,4 @@
       <QuestionsListSkeleton />
     {/if}
   </div>
-</div>
+</Container>

@@ -1,29 +1,28 @@
 <script lang="ts">
   import { liveQuery } from 'dexie';
-  import { db } from '$lib/db';
   import { resolve } from '$app/paths';
   import { GradientButton } from 'flowbite-svelte';
   import { ArchiveSolid } from 'flowbite-svelte-icons';
   import BottomActions from '$lib/components/BottomActions/BottomActions.svelte';
   import QuestionsList from '$lib/components/QuestionsList/QuestionsList.svelte';
-    import QuestionsListSkeleton from '$lib/components/QuestionsListSkeleton/QuestionsListSkeleton.svelte';
+  import QuestionsListSkeleton from '$lib/components/QuestionsListSkeleton/QuestionsListSkeleton.svelte';
+  import ListNotFound from '$lib/components/ListNotFound/ListNotFound.svelte';
+  import Container from '$lib/components/Container/Container.svelte';
+  import { getArchivedQuestions, getUnArchivedQuestions } from '$lib/api/questions';
 
-  let questions = liveQuery(() => db.questions.where('archivedAt').equals(0).toArray());
-  let archivedQuestions = liveQuery(() => db.questions.where('archivedAt').notEqual(0).toArray());
-  $effect(() => {
-    console.log($questions);
-  });
+  let questions = liveQuery(getUnArchivedQuestions);
+  let archivedQuestions = liveQuery(getArchivedQuestions);
 </script>
 
-<div class="mx-auto max-w-[65ch]">
+<Container>
   <div class="-mx-4 -mt-4 pb-[72px]">
     {#if $questions}
       {#if $questions.length}
         <QuestionsList questions={$questions} />
       {:else}
-        <div class="mt-10 text-center text-xl">
-          No Questions Found :(<br /><a class="underline" href={resolve('/create')}>Create a first one</a>!
-        </div>
+        <ListNotFound>
+          No Questions Found :(<br /><a class="underline text-primary-600" href={resolve('/questions/new')}>Create a first one</a>
+        </ListNotFound>
       {/if}
     {:else}
       <QuestionsListSkeleton />
@@ -37,4 +36,4 @@
       </GradientButton>
     </BottomActions>
   {/if}
-</div>
+</Container>

@@ -11,16 +11,14 @@
     EyeSlashSolid,
     EyeSolid,
     CloseOutline,
-
     UploadSolid
-
   } from 'flowbite-svelte-icons';
   import * as yup from 'yup';
   import QuestionView from '$lib/components/QuestionView/QuestionView.svelte';
   import { blur, fade } from 'svelte/transition';
   import { addQuestion, archiveQuestion, unarchiveQuestion, updateQuestion } from '$lib/api/questions';
   import { resolve } from '$app/paths';
-    import { goto } from '$app/navigation';
+  import { goto } from '$app/navigation';
 
   let preview = $state(false);
 
@@ -131,6 +129,8 @@
       }, 3000);
     }
   };
+
+  const FORM_ID = 'question-form';
 </script>
 
 <div class="mx-auto prose pb-[72px] dark:prose-invert">
@@ -149,8 +149,7 @@
         >
       {/if}
     </div>
-    <p>Use the form below to create a new question.</p>
-    <form onsubmit={handleSubmit} id="create-question-form">
+    <form onsubmit={handleSubmit} id={FORM_ID}>
       <div class="flex flex-col gap-4">
         <div>
           <Label for="question" class="mb-2">Question</Label>
@@ -239,7 +238,7 @@
       {preview ? 'Exit Preview' : 'Preview'}
     </span>
   </Button>
-  <Button disabled={preview} class="flex flex-1 gap-1" type="submit" form="create-question-form">
+  <Button disabled={preview} class="flex flex-1 gap-1" type="submit" form={FORM_ID}>
     <CheckCircleSolid /><span>Save</span>
   </Button>
 </BottomActions>

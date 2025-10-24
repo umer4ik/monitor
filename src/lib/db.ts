@@ -1,16 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-
-export interface Question {
-  id: number;
-  question: string;
-  description: string;
-  positive: string;
-  negative: string;
-  createdAt: Date;
-  updatedAt: Date;
-  archivedAt: Date | 0;
-}
-
+import type { Question } from './types/db-entities';
 
 export const db = new Dexie('MonitorDatabase') as Dexie & {
   questions: EntityTable<Question, 'id'>;
